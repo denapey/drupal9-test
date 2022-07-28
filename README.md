@@ -1,6 +1,4 @@
-# drupal9-test
-
-Drupal 9 Demo
+# Drupal9 Custome Template with Content Type
 
 1. Download repository ke dalam komputer menggunakan perintah git clone. Url repository dapat dilihat di dalam repository
 
