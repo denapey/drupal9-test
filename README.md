@@ -19,5 +19,4 @@ git pull https://github.com/denapey/drupal9-test.git master
 mysql -u root -p -e "create database drupal_vox";
 
 4. Import Database file drupal_vox.sql
-
-mysql -u root -p drupal_vox < drupal_vox.sql
+mysqldump drupal_vox > drupal_vox.sql
