@@ -1,0 +1,174 @@
+.header{
+ display: flex;
+ justify-content: space-between;
+ padding: 10px;
+}
+
+
+.header.region {
+ padding: 5px;
+}
+
+
+.header.region-branding {
+ flex: 0 1 20%;
+}
+
+
+.header.region-navigation {
+ flex: 0 1 50%;
+}
+
+
+.header.region-search {
+ flex: 0 1 30%;
+}
+
+
+.region.block-region {
+ padding: 15px;
+}
+
+
+.featured{
+ padding: 40px 20px;
+ /*background-color: indianred;*/
+}
+
+.banner {
+    padding: 50px;
+    max-height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+.banner img {
+    width: 100%;    
+}
+
+.banner .title {
+    width: 100%;
+    text-align: center;
+    font-size: 40px;
+    color: #fff;
+    position: absolute;
+}
+
+.banner .search {
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    position: absolute;
+    top: 200px;
+}
+
+.banner .search .search-txt {
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    min-width: 380px;
+}
+
+.banner .subtitle {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
+    position: absolute;
+    bottom: 50px;
+}
+
+.main{
+ padding: 50px 0;
+ display: flex;
+ justify-content: space-between;
+}
+
+
+.main.content {
+ flex: 0 1 65%;
+}
+
+.events {
+    display: block;
+    width: 85%;
+    margin-left: 80px;
+}
+.event {  
+    float: left;
+    width: 50%;
+}
+.event-card {
+    border-radius: 7px;
+    border: 1px solid #a9a9a9;
+    margin: 10px;
+    position:relative;
+    padding-bottom: 50px;
+}
+.event-img { 
+    margin-bottom: 30px;
+    height: 280px;
+    overflow: hidden;
+}
+.event-img img { width: 100%; }
+
+.event-title { 
+    font-size: 16px;
+    padding: 0 15px;
+}
+.event-body {
+    font-size: 14px;
+    padding: 0 15px;
+    height: 180px;
+    overflow: hidden;
+}
+
+.main.right--sidebar {
+ flex: 0 1 30%;
+}
+
+.news {
+    display: block;
+    width: 85%;
+}
+
+.btn-detail {
+    padding: 8px 20px;
+    text-decoration: none;
+    border: 1px solid #4725ff;
+    border-radius: 4px;
+    position: absolute;
+    right: 10px;
+    background: #4464ff;
+    cursor: pointer;
+    color: #fff;
+}
+
+.footer--top {
+ display: flex;
+ justify-content: space-between;
+ padding: 10px;
+}
+
+
+.footer--top .region {
+ padding: 5px;
+}
+
+.related {
+    display: block;
+    width: 100%;
+}
+
+
+.region-footer-first, .region-footer-second, .region-footer-third {
+    flex: 0 1 30%;
+}
+
+.path-node .content {
+    width: 70%;
+    padding-left: 75px;
+}
+
+.path-node .right--sidebar {
+    width: 25%;
+}

@@ -1,0 +1,115 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+use Drupal\donate\Controller\LibraryController;
+use Drupal\node\Entity\Node;
+
+/**
+ * Implements hook_preprocess_HOOK() for HTML document templates.
+ *
+ * Adds body classes if certain regions have content.
+ */
+function vox_theme_preprocess_html(&$variables) {
+  
+  try {
+    $variables['is_front'] = \Drupal::service('path.matcher')->isFrontPage();
+  }
+  catch (Exception $e) {
+    $variables['is_front'] = FALSE;
+  }
+
+}
+
+
+function vox_theme_preprocess_page(&$variables) {
+
+  //$variables['#attached']['library'][] = 'bartikunhcr/booth-styling';
+  //$variables['#attached']['library'][] = 'bartikunhcr/campaign-styling';
+
+  //if ($variables['is_front']) {
+  
+    if ($node = \Drupal::routeMatch()->getParameter('node_preview')) {
+      $variables["node"] = $node;
+    }
+  
+    $nids = \Drupal::entityQuery('node')
+    ->condition('type','banner')
+    ->sort('changed', 'DESC')
+    ->range(0, 1)
+    ->execute();
+    
+    $nid = current($nids);
+    $node = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
+
+    $banner = array(
+      'nid' => (int) $nid,
+      'title' => $node->getTitle(),
+      'banner' => file_create_url($node->field_banner_image->entity->getFileUri()),
+      'banner_path' => $node->get('field_banner_image')->entity->uri->value,
+      'subtitle' => $node->field_banner_subtitle->value,
+    );
+    
+    $variables["page"]["banner_id"] = $nid;
+    $variables["page"]["banner_title"] = $banner['title'];
+    $variables["page"]["banner_image"] = $banner['banner'];
+    $variables["page"]["banner_image_path"] = $banner['banner_path'];
+    $variables["page"]["banner_subtitle"] = $banner['subtitle'];
+
+
+    // List Event
+    $all_event = array();
+    $query_string = "SELECT node_field_data.langcode AS node_field_data_langcode, node_field_data.created AS node_field_data_created, node_field_data.nid AS nid
+    FROM {node_field_data} node_field_data
+    WHERE (node_field_data.status = '1') AND (node_field_data.type IN ('event'))
+    ORDER BY node_field_data_created DESC
+    LIMIT 2";
+    $events = \Drupal::database()->query($query_string)->fetchAll();
+
+    foreach($events as $key => $node_id){
+      $nodeid = $node_id->nid;
+      $node = Node::load($nodeid);
+
+      $event['id'] = $nodeid;
+      $event['title'] = $node->get('title')->value;                
+      $event['body'] = $node->get('body')->value;
+      $event['image'] = file_create_url($node->field_event_image->entity->getFileUri());
+      $date = $node->get('field_event_date')->value;
+      //$date = $myDateTime->format('d-m-Y');
+
+      $event['date'] = $date;
+      $event['url'] = $node->toUrl()->toString();
+
+      array_push($all_event, $event);
+    }
+    $variables["events"] = $all_event;
+
+    // News
+    $all_news = array();
+    $query_string = "SELECT node_field_data.langcode AS node_field_data_langcode, node_field_data.created AS node_field_data_created, node_field_data.nid AS nid
+    FROM {node_field_data} node_field_data
+    WHERE (node_field_data.status = '1') AND (node_field_data.type IN ('news'))
+    ORDER BY node_field_data_created DESC
+    LIMIT 1";
+    $events = \Drupal::database()->query($query_string)->fetchAll();
+
+    foreach($events as $key => $node_id){
+      $nodeid = $node_id->nid;
+      $node = Node::load($nodeid);
+
+      $news['id'] = $nodeid;
+      $news['title'] = $node->get('title')->value;                
+      $news['body'] = $node->get('body')->value;
+      $news['image'] = file_create_url($node->field_news_image->entity->getFileUri());
+      $news['url'] = $node->toUrl()->toString();
+      array_push($all_news, $news);
+    }
+    $variables["news"] = $all_news;
+  //}
+
+}

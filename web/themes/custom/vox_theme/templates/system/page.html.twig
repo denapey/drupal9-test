@@ -1,0 +1,87 @@
+
+<section class="featured" id="featured" role="complementary">
+
+    <!-- 
+    <div class="nid">{{ page.banner_id }}</div>
+    <div class="title">{{ page.banner_title }}</div>
+    <div class="banner">{{ page.banner_image }}</div>
+    <div class="banner_path">{{ page.banner_image_path }}</div>
+    <div class="banner_subtitle">{{ page.banner_subtitle }}</div>
+     -->
+
+    <div class="banner">
+        <h1 class="title"> {{ page.banner_title }} </h1>
+        <img src="{{ page.banner_image }}">
+        <div class="search">
+            <input class="search-txt" type="" name="" placeholder="Excample, Mobile App, Website">
+            <input type="submit" name="submit" value="Search">
+        </div>
+        <div class="subtitle">
+            {{ page.banner_subtitle }}
+        </div>
+    </div>
+
+   {{ page.featured }}
+</section>
+
+<section class="main" id="main">
+   <main aria-label="Site main content" class="content" id="content" role="main">
+     {% if is_front %}
+            
+            <!-- Show Event -->
+            <div class="events">
+                <h2>Events</h2>
+                {% for event in events %}
+                    <div class="event">
+                        <div class="event-card">
+                            <a href="{{ event.url }}">
+                            <div class="event-img"><img src="{{ event.image }}"></div>
+                            </a>
+                            <div class="event-title"><a href="{{ event.url }}">{{ event.title }}</a></div>
+                            {% autoescape false %} 
+                            <div class="event-body">{{ event.body }}</div>
+                            {% endautoescape %}
+
+                            <a href="{{ event.url }}" class="btn-detail"> Detail</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+     {% else %}
+        {{ page.content }}
+     {% endif %}
+
+   </main>
+   <aside class="right--sidebar" id="sidebar" role="complementary">
+     {% if is_front %}
+        
+            <div class="data-news">
+                <h2>News</h2>
+                {% for item in news %}
+                    <div class="news">
+                        <div class="event-card">
+
+                        <a href="{{ item.url }}">
+                        <div class="event-img"><img src="{{ item.image }}"></div>
+                        </a>
+                        <div class="event-title"><a href="{{ item.url }}">{{ item.title }}</a></div>
+                        {% autoescape false %} 
+                        <div class="event-body">{{ item.body }}</div>
+                        {% endautoescape %}
+
+                        <a href="{{ item.url }}" class="btn-detail"> Detail</a>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+     {% else %}
+        
+        <div class="related"><h2>Related Event / News</h2></div>
+
+     {% endif %}
+   </aside>
+</section>
